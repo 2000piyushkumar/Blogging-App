@@ -1,4 +1,4 @@
-package com.scaler.blogapi.blogs;
+package com.scaler.blogapi.security.authTokens;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -6,5 +6,6 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 
 @Repository
-public interface BlogRepository extends JpaRepository<BlogEntity, UUID> {
+public interface AuthTokenRepository extends JpaRepository<AuthTokenEntity, UUID> {
+
 }

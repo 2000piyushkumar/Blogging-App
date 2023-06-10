@@ -2,6 +2,8 @@ package com.scaler.blogapi.users;
 
 import com.scaler.blogapi.commons.Exception.DuplicateEmailException;
 import com.scaler.blogapi.commons.Exception.UserAlreadyExistException;
+import com.scaler.blogapi.security.authTokens.AuthTokenRepository;
+import com.scaler.blogapi.security.authTokens.AuthTokenService;
 import com.scaler.blogapi.security.jwt.JWTService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -15,8 +17,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @DataJpaTest
 public class UserServiceTest {
     @Autowired private UserRepository userRepository;
+    @Autowired private AuthTokenRepository authTokenRepository;
     public UserService createUserService(){
-        return new UserService(userRepository,new ModelMapper(), new BCryptPasswordEncoder(),new JWTService());
+        return new UserService(userRepository,new ModelMapper(), new BCryptPasswordEncoder(),new JWTService(), new AuthTokenService(authTokenRepository));
     }
 
     @Test

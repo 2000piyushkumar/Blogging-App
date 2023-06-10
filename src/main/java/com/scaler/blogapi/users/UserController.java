@@ -23,8 +23,13 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<UserResponseDTO> loginUser(@RequestBody LoginUserDTO loginUserDTO) throws IllegalArgumentException {
-        return ResponseEntity.ok(userService.loginUser(loginUserDTO));
+    public ResponseEntity<UserResponseDTO> loginUser(@RequestBody LoginUserDTO loginUserDTO, @RequestParam(required = false, value = "token") String token) throws IllegalArgumentException {
+        //if token == "JWT" then generate jwtToken and if token == "auth_token" then generate auth token
+        var authType = UserService.AuthType.JWT;
+        if(token != null && token.equals("auth_token")){
+            authType = UserService.AuthType.AUTH_TOKEN;
+        }
+        return ResponseEntity.ok(userService.loginUser(loginUserDTO,authType));
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
